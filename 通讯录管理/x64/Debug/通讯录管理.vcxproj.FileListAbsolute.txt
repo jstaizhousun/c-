@@ -1,0 +1,2 @@
+D:\C++study\通讯录管理\x64\Debug\通讯录管理.exe
+D:\C++study\通讯录管理\x64\Debug\通讯录管理.pdb
