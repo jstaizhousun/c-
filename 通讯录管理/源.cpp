@@ -9,8 +9,6 @@ void showMenu() {
 	cout << "*****   2、显示联系人   *****" << endl;
 	cout << "*****   3、删除联系人   *****" << endl;
 	cout << "*****   4、查找联系人   *****" << endl;
-	cout << "*****   5、修改联系人   *****" << endl;
-	cout << "*****   6、清空联系人   *****" << endl;
 	cout << "*****   0、退出管理系统   ***" << endl;
 	cout << "*****************************" << endl;
 };
@@ -111,6 +109,24 @@ void delPerson(AddressBooks*p){
 		}
 	}
 }
+//查找联系人
+void findPerson(AddressBooks* p) {
+	string name;
+	cout << "请输入联系人姓名" << endl;
+	cin >> name;
+	for (int i = 0; i < p->m_Size; i++) {
+		if (p->personArray[i].m_name == name) {
+			cout << "姓名：" << p->personArray[i].m_name << "\t";
+			cout << "性别：" << (p->personArray[i].m_Sex == 1 ? "男" : "女") << "\t";
+			cout << "年龄：" << p->personArray[i].m_Age << "\t";
+			cout << "电话：" << p->personArray[i].m_phone << "\t";
+			cout << "住址：" << p->personArray[i].m_addr << endl;
+		}
+		else {
+			cout << "查无此人" << endl;
+		}
+	}
+}
 int main() {
 	//创建通讯录结构体变量
 	AddressBooks abs;
@@ -141,12 +157,8 @@ int main() {
 			break;
 			//查找联系人
 		case 4:
-			break;
-			//修改联系人
-		case 5:
-			break;
-			//清空联系人
-		case 6:
+			findPerson(&abs);
+			system("pause");
 			break;
 			//退出系统
 		case 0:
