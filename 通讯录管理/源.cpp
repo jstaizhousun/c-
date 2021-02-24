@@ -4,6 +4,7 @@
 using namespace std;
 //菜单显示功能
 void showMenu() {
+	cout << "*****************************" << endl;
 	cout << "*****   1、添加联系人   *****" << endl;
 	cout << "*****   2、显示联系人   *****" << endl;
 	cout << "*****   3、删除联系人   *****" << endl;
@@ -11,6 +12,7 @@ void showMenu() {
 	cout << "*****   5、修改联系人   *****" << endl;
 	cout << "*****   6、清空联系人   *****" << endl;
 	cout << "*****   0、退出管理系统   ***" << endl;
+	cout << "*****************************" << endl;
 };
 //联系人结构体
 struct Person {
@@ -40,7 +42,6 @@ void addPerson(AddressBooks* abs) {
 	}
 	else {
 		//添加具体联系人
-
 		//姓名
 		cout << "请输入姓名" << endl;
 		cin >> abs->personArray[abs->m_Size].m_name;
@@ -55,7 +56,6 @@ void addPerson(AddressBooks* abs) {
 			}
 			else {
 				cout << "输入错误，请重新输入性别，1为男，2为女" << endl;
-
 			}
 		};
 		//年龄
@@ -65,11 +65,52 @@ void addPerson(AddressBooks* abs) {
 		abs->personArray[abs->m_Size].m_Age = age;
 		//电话
 		cout << "请输入电话" << endl;
-		string phone ="0";
+		string phone = "0";
 		cin >> phone;
 		abs->personArray[abs->m_Size].m_phone = phone;
+		//住址
+		cout << "请输入住址" << endl;
+		string address = "0";
+		cin >> address;
+		abs->personArray[abs->m_Size].m_addr = address;
+		//计数增加
+		abs->m_Size++;
 	}
 };
+//显示联系人
+void showPerson(AddressBooks* abs) {
+	if (abs->m_Size == 0) {
+		cout << "联系人为空" << endl;
+	}
+	else {
+		for (int i = 0; i < abs->m_Size; i++) {
+			cout << "姓名：" << abs->personArray[i].m_name << "\t";
+			cout << "性别：" << (abs->personArray[i].m_Sex == 1 ? "男" : "女") << "\t";
+			cout << "年龄：" << abs->personArray[i].m_Age << "\t";
+			cout << "电话：" << abs->personArray[i].m_phone << "\t";
+			cout << "住址：" << abs->personArray[i].m_addr << endl;
+		}
+	}
+};
+//删除联系人
+void delPerson(AddressBooks*p){
+	string name;
+	cout << "请输入联系人姓名" << endl;
+	cin >> name;
+	//查找是否存在联系人
+	for (int i = 0; i < p->m_Size; i++) {
+		if (p->personArray[i].m_name == name) {
+			for (int j = i; j < p->m_Size; j++) {
+				p->personArray[i] = p->personArray[i + 1];
+			}
+			p->m_Size--;
+			cout << "删除成功" << endl;
+		}
+		else {
+			cout << "查无此人" <<endl;
+		}
+	}
+}
 int main() {
 	//创建通讯录结构体变量
 	AddressBooks abs;
@@ -79,6 +120,7 @@ int main() {
 	int select = -1;
 	while (true) {
 		//菜单的调用
+		system("cls");
 		showMenu();
 		//获取用户输入信息
 		cin >> select;
@@ -89,9 +131,13 @@ int main() {
 			break;
 			//显示联系人
 		case 2:
+			showPerson(&abs);
+			system("pause");
 			break;
 			//删除联系人
 		case 3:
+			delPerson(&abs);
+			system("pause");
 			break;
 			//查找联系人
 		case 4:
